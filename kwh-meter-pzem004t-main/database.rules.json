@@ -1,0 +1,35 @@
+{
+  "rules": {
+    "devices": {
+      "$deviceId": {
+        "status": {
+          ".read": true,
+          ".write": false
+        },
+        "latest": {
+          ".read": true,
+          ".write": false
+        },
+        "info": {
+          ".read": true,
+          ".write": "auth != null"
+        }
+      }
+    },
+    "history": {
+      "$deviceId": {
+        ".read": true,
+        ".write": false,
+        "$date": {
+          ".indexOn": ["t", "seq"]
+        }
+      }
+    },
+    "summaries": {
+      "$deviceId": {
+        ".read": true,
+        ".write": false
+      }
+    }
+  }
+}
