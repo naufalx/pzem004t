@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Diagnostik Kualitas Listrik - KWH Meter</title>
+<link rel="stylesheet" href="style.css?v=2.3.0">
+</head>
+<body>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="brand-icon">ϟ</div><div><h2>KWH METER</h2><span>ESP32 Telemetry</span></div></div>
+  <nav>
+    <a class="nav-item " href="index.html"><span class="nav-icon">⌂</span><span>Dashboard</span></a>
+    <a class="nav-item active" href="real-time.html"><span class="nav-icon">⌁</span><span>Diagnostik</span></a>
+    <a class="nav-item " href="riwayat.html"><span class="nav-icon">▣</span><span>Riwayat Data</span></a>
+    <a class="nav-item " href="energy.html"><span class="nav-icon">ϟ</span><span>Energy (kWh)</span></a>
+    <a class="nav-item " href="pengaturan.html"><span class="nav-icon">⚙</span><span>Pengaturan</span></a>
+    <a class="nav-item " href="tentang.html"><span class="nav-icon">ⓘ</span><span>Tentang</span></a>
+  </nav>
+  <div class="sidebar-bottom">
+    <div class="side-card">
+      <small>STATUS ESP32</small>
+      <div class="online" data-connection><i></i> Menghubungkan...</div>
+      <p>⌁ <span id="espHost">ESP32</span></p>
+    </div>
+    <div class="side-card time-card">
+      <small>WAKTU</small>
+      <p id="sideDate">--</p>
+      <strong id="sideTime">--:--:--</strong>
+    </div>
+  </div>
+</aside>
+<main class="main">
+<header class="header">
+  <div class="header-title">
+    <button class="menu" aria-label="Buka menu">☰</button>
+    <div><h1>DIAGNOSTIK LISTRIK</h1><p>Analisis kualitas daya, frekuensi & latensi telemetri</p></div>
+  </div>
+  <div class="esp-status" id="espStatus" role="status" aria-live="polite"><i></i><div><strong>ESP32</strong><span id="connectionStatus">Menghubungkan...</span></div></div>
+</header>
+<section class="content">
+<div class="metrics">
+  <div class="metric-card voltage">
+    <div class="metric-head">
+      <div class="metric-icon" aria-hidden="true">∿</div>
+      <div class="metric-label">
+        <span>FREKUENSI</span>
+        <small>Toleransi PLN</small>
+      </div>
+    </div>
+    <div class="metric-value">
+      <strong id="diagFrequency">50.0</strong><b>Hz</b>
+    </div>
+    <div class="meter"><span id="diagFrequencyMeter" style="width:50%"></span></div>
+  </div>
+  <div class="metric-card current">
+    <div class="metric-head">
+      <div class="metric-icon" aria-hidden="true">S</div>
+      <div class="metric-label">
+        <span>DAYA SEMU</span>
+        <small>Daya Semu (S)</small>
+      </div>
+    </div>
+    <div class="metric-value">
+      <strong id="diagApparentPower">--</strong><b>VA</b>
+    </div>
+    <div class="meter"><span id="diagApparentMeter"></span></div>
+  </div>
+  <div class="metric-card power">
+    <div class="metric-head">
+      <div class="metric-icon" aria-hidden="true">Q</div>
+      <div class="metric-label">
+        <span>DAYA REAKTIF</span>
+        <small>Daya Reaktif (Q)</small>
+      </div>
+    </div>
+    <div class="metric-value">
+      <strong id="diagReactivePower">--</strong><b>VAR</b>
+    </div>
+    <div class="meter"><span id="diagReactiveMeter"></span></div>
+  </div>
+  <div class="metric-card pf">
+    <div class="metric-head">
+      <div class="metric-icon" aria-hidden="true">PF</div>
+      <div class="metric-label">
+        <span>FAKTOR DAYA</span>
+        <small>Faktor Daya (cos φ)</small>
+      </div>
+    </div>
+    <div class="metric-value">
+      <strong id="powerFactor">--</strong><b>PF</b>
+    </div>
+    <div class="meter"><span id="diagPfMeter"></span></div>
+  </div>
+</div>
+
+<div class="panel table-panel">
+  <div class="panel-header">
+    <div><h2>PARAMETER FISIS & KUALITAS TEGANGAN</h2><p>Nilai tegangan, arus, dan toleransi suplai listrik PLN</p></div>
+    <span class="live-badge">● LIVE</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Parameter</th><th>Nilai Fisis</th><th>Standar Normal</th><th>Status Kualitas</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Tegangan AC (RMS)</td><td><strong id="tVoltage">--</strong> V</td><td>220 VAC ±10% (198V s.d. 242V)</td><td id="diagVoltageStatus" style="color:var(--vercel-green-text);font-weight:600;">Normal</td></tr>
+        <tr><td>Arus Listrik AC (RMS)</td><td><strong id="tCurrent">--</strong> A</td><td>Sesuai Kapasitas MCB</td><td id="diagCurrentStatus" style="color:var(--vercel-green-text);font-weight:600;">Normal</td></tr>
+        <tr><td>Daya Aktif Nyata (P)</td><td><strong id="tPower">--</strong> W</td><td>Maksimal Daya Kontrak</td><td id="diagPowerStatus" style="color:var(--vercel-blue-text);font-weight:600;">Aktif</td></tr>
+        <tr><td>Faktor Daya (Power Factor)</td><td><strong id="tPf">--</strong></td><td>≥ 0.85 (Standar SPLN)</td><td id="diagPfStatus" style="color:var(--vercel-green-text);font-weight:600;">Baik</td></tr>
+        <tr><td>Energi Kumulatif</td><td><strong id="tEnergy">--</strong> kWh</td><td>Akumulatif Chip PZEM</td><td style="color:var(--vercel-blue-text);font-weight:600;">Tersimpan</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="panel" style="margin-top:16px;">
+  <div class="panel-header">
+    <div><h2>DIAGNOSTIK KONEKTIVITAS TELEMETRI</h2><p>Integritas data streaming mikrokontroler ESP32 ke Cloud</p></div>
+  </div>
+  <div class="summary-cards" style="margin-top:14px;margin-bottom:0;">
+    <div class="summary-card">
+      <small>INTERVAL BATCH ESP32</small>
+      <strong>5 Detik (5 Sampel)</strong>
+    </div>
+    <div class="summary-card">
+      <small>WATCHDOG TIMEOUT</small>
+      <strong>15 Detik</strong>
+    </div>
+    <div class="summary-card">
+      <small>STATUS BUFFER OFFLINE</small>
+      <strong style="color:var(--vercel-green-text);">Siap (1.000 Rekaman)</strong>
+    </div>
+  </div>
+</div>
+</section>
+<footer>KWH Meter Dashboard - ESP32 | Monitoring Energi</footer>
+</main></div>
+<script src="firebase-config.js"></script>
+<script type="module" src="app.js?v=2.3.0"></script>
+</body></html>

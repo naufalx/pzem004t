@@ -1,0 +1,13 @@
+{
+  "hosting": {
+    "public": "kwh-meter-pzem004t-main/public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  },
+  "database": {
+    "rules": "database.rules.json"
+  }
+}
