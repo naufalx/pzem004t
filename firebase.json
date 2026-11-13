@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "kwh-meter-pzem004t-main/public",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
