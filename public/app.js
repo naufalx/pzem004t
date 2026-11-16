@@ -6,7 +6,6 @@
 import { TimeSeriesChart } from './chart.js';
 import { initRealtimeStream } from './stream.js';
 
-<<<<<<< HEAD
 // Nama halaman tanpa ekstensi (Firebase Hosting memakai cleanUrls: /riwayat, bukan /riwayat.html)
 function currentPageName() {
   const last = location.pathname.split('/').pop() || 'index';
@@ -40,8 +39,6 @@ async function loadHistoryFromFirebase(dateStr, limit = 0) {
     .sort((a, b) => b.timestamp - a.timestamp);
 }
 
-=======
->>>>>>> 533b736fbef121c0c71dfce508ebca106f820a97
 let powerChart = null;
 let currentChart = null;
 let isConnected = false;
@@ -295,13 +292,7 @@ async function preloadRecentTelemetriesForIndex() {
   if (!body || body.dataset.liveRows !== 'true') return;
 
   try {
-<<<<<<< HEAD
     const data = { records: await loadHistoryFromFirebase(jakartaDateKey(), 10) };
-=======
-    const res = await fetch('/api/history');
-    if (!res.ok) return;
-    const data = await res.json();
->>>>>>> 533b736fbef121c0c71dfce508ebca106f820a97
     if (!data.records || data.records.length === 0) return;
 
     const placeholder = body.querySelector('tr td[colspan]');
@@ -449,21 +440,11 @@ function setupPagination() {
 // Fetch Filtered History from Server
 async function fetchHistory(dateStr = '') {
   const body = $('historyBody');
-<<<<<<< HEAD
   if (!body || currentPageName() !== 'riwayat') return;
 
   try {
     body.innerHTML = '<tr><td colspan="6">Memuat riwayat dari cloud...</td></tr>';
     const data = { records: await loadHistoryFromFirebase(dateStr) };
-=======
-  if (!body || location.pathname.split('/').pop() !== 'riwayat.html') return;
-
-  try {
-    body.innerHTML = '<tr><td colspan="6">Memuat riwayat dari cloud...</td></tr>';
-    const url = `/api/history${dateStr ? '?date=' + dateStr : ''}`;
-    const res = await fetch(url);
-    const data = await res.json();
->>>>>>> 533b736fbef121c0c71dfce508ebca106f820a97
 
     if (!data.records || data.records.length === 0) {
       allHistoryRecords = [];
@@ -496,7 +477,6 @@ async function fetchHistory(dateStr = '') {
   }
 }
 
-<<<<<<< HEAD
 async function downloadCSV() {
   const dateInput = $('historyDateFilter')?.value || jakartaDateKey();
   try {
@@ -513,12 +493,6 @@ async function downloadCSV() {
   } catch (err) {
     alert('Gagal mengekspor CSV: ' + err.message);
   }
-=======
-function downloadCSV() {
-  const dateInput = $('historyDateFilter')?.value || '';
-  const url = `/api/history?format=csv${dateInput ? '&date=' + dateInput : ''}`;
-  window.open(url, '_blank');
->>>>>>> 533b736fbef121c0c71dfce508ebca106f820a97
 }
 
 // Realtime Stream Connection via Stream Manager
@@ -709,28 +683,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Index page live table preload
-<<<<<<< HEAD
   const currentPageFile = currentPageName();
   if (currentPageFile === 'index') {
-=======
-  const currentPageFile = location.pathname.split('/').pop();
-  if (!currentPageFile || currentPageFile === 'index.html') {
->>>>>>> 533b736fbef121c0c71dfce508ebca106f820a97
     preloadRecentTelemetriesForIndex();
   }
 
   // History page setup
-<<<<<<< HEAD
   if (currentPageFile === 'riwayat') {
     setupPagination();
     const datePicker = $('historyDateFilter');
     const todayStr = jakartaDateKey();
-=======
-  if (currentPageFile === 'riwayat.html') {
-    setupPagination();
-    const datePicker = $('historyDateFilter');
-    const todayStr = new Date().toISOString().split('T')[0];
->>>>>>> 533b736fbef121c0c71dfce508ebca106f820a97
     if (datePicker && !datePicker.value) {
       datePicker.value = todayStr;
     }
