@@ -1,0 +1,40 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "devices": {
+      "$deviceId": {
+        "latest": {
+          ".read": true,
+          ".write": "auth != null"
+        },
+        "status": {
+          ".read": true,
+          ".write": "auth != null"
+        },
+        "info": {
+          ".read": true,
+          ".write": "auth != null"
+        }
+      }
+    },
+    "history": {
+      "$deviceId": {
+        ".read": true,
+        ".write": "auth != null",
+        "$date": {
+          ".indexOn": [
+            "t",
+            "seq"
+          ]
+        }
+      }
+    },
+    "summaries": {
+      "$deviceId": {
+        ".read": true,
+        ".write": "auth != null"
+      }
+    }
+  }
+}

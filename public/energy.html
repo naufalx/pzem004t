@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Energy & Biaya - KWH Meter</title>
+<link rel="stylesheet" href="style.css?v=2.3.0">
+</head>
+<body>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="brand-icon">ϟ</div><div><h2>KWH METER</h2><span>ESP32 Telemetry</span></div></div>
+  <nav>
+    <a class="nav-item " href="index.html"><span class="nav-icon">⌂</span><span>Dashboard</span></a>
+    <a class="nav-item " href="real-time.html"><span class="nav-icon">⌁</span><span>Diagnostik</span></a>
+    <a class="nav-item " href="riwayat.html"><span class="nav-icon">▣</span><span>Riwayat Data</span></a>
+    <a class="nav-item active" href="energy.html"><span class="nav-icon">ϟ</span><span>Energy (kWh)</span></a>
+    <a class="nav-item " href="pengaturan.html"><span class="nav-icon">⚙</span><span>Pengaturan</span></a>
+    <a class="nav-item " href="tentang.html"><span class="nav-icon">ⓘ</span><span>Tentang</span></a>
+  </nav>
+  <div class="sidebar-bottom">
+    <div class="side-card">
+      <small>STATUS ESP32</small>
+      <div class="online" data-connection><i></i> Menghubungkan...</div>
+      <p>⌁ <span id="espHost">ESP32</span></p>
+    </div>
+    <div class="side-card time-card">
+      <small>WAKTU</small>
+      <p id="sideDate">--</p>
+      <strong id="sideTime">--:--:--</strong>
+    </div>
+  </div>
+</aside>
+<main class="main">
+<header class="header">
+  <div class="header-title">
+    <button class="menu" aria-label="Buka menu">☰</button>
+    <div><h1>ENERGI & BIAYA</h1><p>Kalkulator konsumsi listrik kWh & estimasi tagihan PLN</p></div>
+  </div>
+  <div class="esp-status" id="espStatus" role="status" aria-live="polite"><i></i><div><strong>ESP32</strong><span id="connectionStatus">Menghubungkan...</span></div></div>
+</header>
+<section class="content">
+<div id="overloadAlertBanner" class="overload-banner"></div>
+
+<div class="panel energy-page">
+  <div class="panel-header">
+    <div>
+      <h2>AKUMULASI ENERGI AKTIF</h2>
+      <p class="muted">Nilai pembacaan register chip presisi PZEM-004T</p>
+    </div>
+    <div class="ring">ϟ</div>
+  </div>
+  <div class="energy-value">
+    <strong id="energy">--</strong> <span>kWh</span>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-header">
+    <div>
+      <h2>ESTIMASI BIAYA LISTRIK PLN</h2>
+      <p id="costTariffInfo">Standar Tarif: Rp 1.444,70 / kWh (Golongan R-1/TR)</p>
+    </div>
+  </div>
+  <div class="energy-list">
+    <div><span>Estimasi Tagihan Hari Ini</span><b id="costToday">Rp 0</b></div>
+    <div><span>Estimasi Tagihan Bulan Berjalan</span><b id="costMonth">Rp 0</b></div>
+    <div><span>Estimasi Tagihan Total Kumulatif</span><b id="costTotal">Rp 0</b></div>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-header">
+    <div>
+      <h2>KAPASITAS BEBAN MCB RUMAH</h2>
+      <p id="mcbCapacityText">Batas Daya MCB: 1.300 Watt</p>
+    </div>
+    <span id="mcbLoadPct" style="font-weight:600;color:var(--vercel-blue-text);font-size:15px;font-family:var(--font-mono);">0%</span>
+  </div>
+  <div class="meter" style="height:6px;margin-top:14px;"><span id="mcbLoadMeter" style="width:0%;"></span></div>
+  <div class="energy-list" style="margin-top:12px;">
+    <div><span>Daya Terpakai Saat Ini</span><b id="energyPower">-- W</b></div>
+    <div><span>Tegangan Suplai</span><b id="energyVoltage">-- V</b></div>
+    <div><span>Arus Terukur</span><b id="energyCurrent">-- A</b></div>
+  </div>
+</div>
+</section>
+<footer>KWH Meter Dashboard - ESP32 | Monitoring Energi</footer>
+</main></div>
+<script src="firebase-config.js"></script>
+<script type="module" src="app.js?v=2.3.0"></script>
+</body></html>
