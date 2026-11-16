@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Dependencies
 node_modules/
 
@@ -24,3 +25,6 @@ npm-debug.log*
 # OS Files
 .DS_Store
 Thumbs.db
+=======
+firebase-debug.log 
+>>>>>>> 533b736fbef121c0c71dfce508ebca106f820a97
