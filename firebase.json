@@ -1,27 +1,12 @@
+
 {
-<<<<<<< HEAD
   "database": {
     "rules": "database.rules.json"
   },
-=======
->>>>>>> 533b736fbef121c0c71dfce508ebca106f820a97
   "hosting": {
     "public": "public",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-<<<<<<< HEAD
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "cleanUrls": true,
     "trailingSlash": false
   }
 }
-=======
-    ]
-  },
-  "database": {
-    "rules": "database.rules.json"
-  }
-}
->>>>>>> 533b736fbef121c0c71dfce508ebca106f820a97
