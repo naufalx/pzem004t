@@ -4,7 +4,7 @@
  */
 
 import { TimeSeriesChart } from './chart.js';
-import { initRealtimeStream } from './stream.js';
+import { initRealtimeStream } from './stream.js?v=2,3,1';
 
 // Nama halaman tanpa ekstensi (Firebase Hosting memakai cleanUrls: /riwayat, bukan /riwayat.html)
 function currentPageName() {

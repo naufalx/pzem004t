@@ -19,7 +19,7 @@ export async function initRealtimeStream({ onTelemetry, onStatus, onSummary }) {
     let lastSeen = 0;
 
     const checkStatus = () => {
-      const online = lastSeen > 0 && (Date.now() / 1000 - lastSeen <= 20);
+      const online = lastSeen > 0 && (Date.now() / 1000 - lastSeen <= 400);
       onStatus?.(online, online ? 'Online' : 'Device Offline');
     };
 
