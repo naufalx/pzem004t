@@ -1,6 +1,5 @@
 {
   "rules": {
-<<<<<<< HEAD
     ".read": false,
     ".write": false,
     "devices": {
@@ -12,17 +11,6 @@
         "status": {
           ".read": true,
           ".write": "auth != null"
-=======
-    "devices": {
-      "$deviceId": {
-        "status": {
-          ".read": true,
-          ".write": false
-        },
-        "latest": {
-          ".read": true,
-          ".write": false
->>>>>>> 533b736fbef121c0c71dfce508ebca106f820a97
         },
         "info": {
           ".read": true,
@@ -33,34 +21,20 @@
     "history": {
       "$deviceId": {
         ".read": true,
-<<<<<<< HEAD
         ".write": "auth != null",
         "$date": {
           ".indexOn": [
             "t",
             "seq"
           ]
-=======
-        ".write": false,
-        "$date": {
-          ".indexOn": ["t", "seq"]
->>>>>>> 533b736fbef121c0c71dfce508ebca106f820a97
         }
       }
     },
     "summaries": {
       "$deviceId": {
         ".read": true,
-<<<<<<< HEAD
         ".write": "auth != null"
       }
     }
   }
 }
-=======
-        ".write": false
-      }
-    }
-  }
-}
->>>>>>> 533b736fbef121c0c71dfce508ebca106f820a97
